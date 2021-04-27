@@ -33,7 +33,6 @@ Check ingress:
 export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
 export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].nodePort}')
 export INGRESS_HOST=$(minikube ip)
-minikube tunnel
 ```
 
 ## Helm
@@ -53,8 +52,13 @@ helm repo add stable https://charts.helm.sh/stable
 helm repo update
 helm install prometheus prometheus-community/prometheus
 ```
-## Node exporter
+## Redis
 
 ```bash
-helm install node prometheus-community/prometheus-node-exporter
+kubectl apply -f redis_prometheus_exporter.yaml
+```
+## Kube Scheduler
+
+```bash
+kubectl apply -f scheduler.yaml
 ```
