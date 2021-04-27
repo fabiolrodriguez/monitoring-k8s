@@ -53,8 +53,8 @@ helm repo add stable https://charts.helm.sh/stable
 helm repo update
 helm install prometheus prometheus-community/prometheus
 ```
-## Traefik
+## Node exporter
 
 ```bash
-helm install traefik stable/traefik --set metrics.prometheus.enabled=true
+helm install node prometheus-community/prometheus-node-exporter
 ```
