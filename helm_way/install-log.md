@@ -1,3 +1,5 @@
+## Prometheus
+
 ```bash
 fabio@zup-1337:~$ helm install prometheus prometheus-community/prometheus
 NAME: prometheus
@@ -43,3 +45,22 @@ For more information on running Prometheus, visit:
 https://prometheus.io/
 ```
 
+## Node exporter
+
+```bash
+fabio@zup-1337:~/istio-1.9.3$ helm install node prometheus-community/prometheus-node-exporter
+NAME: node
+LAST DEPLOYED: Tue Apr 27 15:36:40 2021
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+1. Get the application URL by running these commands:
+  export POD_NAME=$(kubectl get pods --namespace default -l "app=prometheus-node-exporter,release=node" -o jsonpath="{.items[0].metadata.name}")
+  echo "Visit http://127.0.0.1:9100 to use your application"
+  kubectl port-forward --namespace default $POD_NAME 9100
+
+```
+
+https://promcat.io/

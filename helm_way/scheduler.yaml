@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: scheduler-service
+  namespace: kube-system
+spec:
+  selector:
+    component: kube-scheduler
+  ports:
+  - name: scheduler
+    protocol: TCP
+    port: 10251
+    targetPort: 10251
