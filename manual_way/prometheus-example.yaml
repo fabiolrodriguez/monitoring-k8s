@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: prometheus-deployment
   labels:
@@ -11,15 +11,17 @@ spec:
     matchLabels:
       app: prometheus
       purpose: example
+  serviceName: "prometheus-example-service"      
   template:
     metadata:
+      name: prometheus
       labels:
         app: prometheus
         purpose: example
-    spec:
+    spec:            
       containers:
       - name: prometheus-example
-        image: prom/prometheus
+        image: prom/prometheus        
         volumeMounts:
           - name: config-volume
             mountPath: /etc/prometheus/prometheus.yml
@@ -27,6 +29,12 @@ spec:
           - name: rules-general
             mountPath: /etc/prometheus/rules/generalrules.yaml
             subPath: generalrules.yaml
+          - name: prometheus-metrics-db
+            mountPath: /data
+        args:
+        - --storage.tsdb.path=/data
+        - --storage.tsdb.retention=400d           
+        - --config.file=/etc/prometheus/prometheus.yml
         ports:
         - containerPort: 9090
       volumes:
@@ -35,8 +43,16 @@ spec:
            name: prometheus-example-cm
         - name: rules-general
           configMap:
-           name: prometheus-rules-general
-
+           name: prometheus-rules-general     
+  volumeClaimTemplates:
+    - metadata:
+        name: prometheus-metrics-db
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 50Gi           
 ---
 kind: Service
 apiVersion: v1
