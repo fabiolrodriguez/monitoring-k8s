@@ -12,6 +12,8 @@ The simple one, describing how to install Prometheus via Helm and monitor a sing
 
 Deploys the complete stack via Statefulset, with persistent metrics storage and ingress for Grafana.
 
-## Operator way
+## kube-prometheus Operator
 
 Deploys the complete stack via Prometheus Operator - WIP
+
+## Prometheus Operator way
