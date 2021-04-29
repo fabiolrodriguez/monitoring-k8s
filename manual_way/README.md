@@ -67,7 +67,7 @@ cd ./manual_way/grafana
 kubectl apply -f grafana-gateway.yaml
 ```
 
-map your minikube ip to the address grafana.local on /etc/hosts
+Map your minikube ip to the address grafana.local on /etc/hosts (or create a grafana DNS entry and adjust grafana/grafana-gateway.yaml)
 
 ```bash
 192.168.49.2 grafana.local
